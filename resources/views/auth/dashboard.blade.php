@@ -599,7 +599,7 @@
                     <div class="d-flex gap-2">
 
                         <!-- EXPORT PDF -->
-                        <a href="{{ route('admin.services.pdf') }}" class="btn btn-success">
+                        <a href="/admin/services/pdf" target="_blank" class="btn btn-success">
                             <i class="bi bi-file-earmark-pdf"></i>
                             Export PDF
                         </a>
