@@ -25,7 +25,6 @@ class ArticleAdminController extends Controller
             'jumlahService' => \App\Models\Services::count()
 
         ]);
-
     }
 
 
@@ -47,7 +46,7 @@ class ArticleAdminController extends Controller
 
 
 
-        $namaFoto = time().'_'.$request->foto->getClientOriginalName();
+        $namaFoto = time() . '_' . $request->foto->getClientOriginalName();
 
 
 
@@ -77,8 +76,7 @@ class ArticleAdminController extends Controller
 
             ->route('admin.articles')
 
-            ->with('success','Artikel berhasil ditambahkan');
-
+            ->with('success', 'Artikel berhasil ditambahkan');
     }
 
 
@@ -97,10 +95,10 @@ class ArticleAdminController extends Controller
 
         $request->validate([
 
-            'title'=>'required',
-            'author'=>'required',
-            'content'=>'required',
-            'publish_date'=>'required'
+            'title' => 'required',
+            'author' => 'required',
+            'content' => 'required',
+            'publish_date' => 'required'
 
         ]);
 
@@ -109,13 +107,13 @@ class ArticleAdminController extends Controller
 
         $data = [
 
-            'title'=>$request->title,
+            'title' => $request->title,
 
-            'author'=>$request->author,
+            'author' => $request->author,
 
-            'content'=>$request->content,
+            'content' => $request->content,
 
-            'publish_date'=>$request->publish_date
+            'publish_date' => $request->publish_date
 
         ];
 
@@ -123,11 +121,10 @@ class ArticleAdminController extends Controller
 
 
 
-        if($request->hasFile('foto'))
-        {
+        if ($request->hasFile('foto')) {
 
 
-            $namaFoto = time().'_'.$request->foto->getClientOriginalName();
+            $namaFoto = time() . '_' . $request->foto->getClientOriginalName();
 
 
 
@@ -141,9 +138,7 @@ class ArticleAdminController extends Controller
 
 
 
-            $data['foto']=$namaFoto;
-
-
+            $data['foto'] = $namaFoto;
         }
 
 
@@ -160,8 +155,7 @@ class ArticleAdminController extends Controller
 
             ->route('admin.articles')
 
-            ->with('success','Artikel berhasil diubah');
-
+            ->with('success', 'Artikel berhasil diubah');
     }
 
 
@@ -188,9 +182,7 @@ class ArticleAdminController extends Controller
 
             ->route('admin.articles')
 
-            ->with('success','Artikel berhasil dihapus');
-
-
+            ->with('success', 'Artikel berhasil dihapus');
     }
 
 
@@ -199,32 +191,13 @@ class ArticleAdminController extends Controller
 
 
 
-
-    // EXPORT PDF ARTICLE
 
     public function exportPdf()
     {
-
-
         $articles = Article::all();
 
+        $pdf = Pdf::loadView('admin.articles_pdf', compact('articles'));
 
-
-        $pdf = Pdf::loadView(
-
-            'admin.articles_pdf',
-
-            compact('articles')
-
-        );
-
-
-
-        return $pdf->download('data-article.pdf');
-
-
+        return $pdf->stream('data-article.pdf');
     }
-
-
-
 }
