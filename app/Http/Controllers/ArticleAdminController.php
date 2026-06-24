@@ -198,6 +198,6 @@ class ArticleAdminController extends Controller
 
         $pdf = Pdf::loadView('admin.articles_pdf', compact('articles'));
 
-        return $pdf->stream('data-article.pdf');
+        return $pdf->download('data-article.pdf');
     }
 }
